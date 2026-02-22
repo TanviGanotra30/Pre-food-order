@@ -67,7 +67,8 @@ export default function Order() {
   }
 
   return (
-    <div className="order-page">
+    <div className="order-bg">
+  <div className="order-page">
       <h2 className="order-title">🧾 Confirm Order</h2>
 
       <div className="bill">
@@ -106,6 +107,7 @@ export default function Order() {
       </button>
 
       {error && <p className="order-error">{error}</p>}
+    </div>
     </div>
   )
 }

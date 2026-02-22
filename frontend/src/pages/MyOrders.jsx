@@ -21,7 +21,8 @@ export default function MyOrders() {
   if (loading) return <p>Loading orders...</p>
 
   return (
-    <div style={{ maxWidth: "800px", margin: "20px auto" }}>
+    <div className="orders-bg">
+  <div className="orders-page">
       <h2>My Orders</h2>
 
       {orders.length === 0 && <p>No orders found</p>}
@@ -82,6 +83,7 @@ export default function MyOrders() {
           </div>
         )
       })}
+    </div>
     </div>
   )
 }

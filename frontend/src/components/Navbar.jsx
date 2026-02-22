@@ -1,14 +1,13 @@
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
 import "./navbar.css"
 
 export default function Navbar() {
   const { logout } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
 
-  // UI only: username localStorage se (agar ho)
   const username = localStorage.getItem("name") || "Student"
-  console.log("Navbar username:", username)
 
   const handleLogout = () => {
     logout()
@@ -16,22 +15,48 @@ export default function Navbar() {
   }
 
   return (
-    <div className="navbar">
-      {/* Left */}
+    <nav className="navbar-glass">
+      
+      {/* LEFT */}
       <div className="navbar-left">
         Hello, <span>{username}</span>
       </div>
 
-      {/* Center */}
+      {/* CENTER */}
       <div className="navbar-center">
-        <Link to="/menu">Menu</Link>
-        <Link to="/menu/orders">My Orders</Link>
+        <Link
+          to="/menu"
+          className={`nav-pill ${
+            location.pathname === "/menu" ? "active" : ""
+          }`}
+        >
+          Menu
+        </Link>
+
+        <Link
+          to="/menu/orders"
+          className={`nav-pill ${
+            location.pathname === "/menu/orders" ? "active" : ""
+          }`}
+        >
+          My Orders
+        </Link>
+
+        <Link
+          to="/order"
+          className="nav-pill primary"
+        >
+          Place Order
+        </Link>
       </div>
 
-      {/* Right */}
+      {/* RIGHT */}
       <div className="navbar-right">
-        <button onClick={handleLogout}>Logout</button>
+        <button className="logout-btn" onClick={handleLogout}>
+          Logout
+        </button>
       </div>
-    </div>
+
+    </nav>
   )
 }
