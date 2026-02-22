@@ -47,58 +47,49 @@ export default function Menu() {
   }
 
   return (
-    <div className="menu-page">
+  <div className="menu-bg">
+    <div className="menu-glass">
+      
+      {/* HEADER */}
       <h2 className="menu-title">🍽 Today’s Menu</h2>
 
+      {/* GRID */}
       <div className="menu-grid">
         {menu.map((item) => {
+          const qty = cart[item.item_id]?.quantity || 0
           const disabled = !item.is_available
 
           return (
-            <div
-              className={`menu-card ${disabled ? "disabled" : ""}`}
-              key={item.item_id}
-            >
-              <div className="menu-card-header">
-                <h3>{item.name}</h3>
-                <span className="price">₹{item.price}</span>
+            <div className={`food-card ${disabled ? "disabled" : ""}`} key={item.item_id}>
+              
+              <div className="food-img">
+                <img src="/food-placeholder.png" alt={item.name} />
               </div>
 
-              <div className="menu-card-footer">
-                <button
-                  onClick={() => removeItem(item)}
-                  disabled={disabled}
-                >
-                  −
-                </button>
+              <h3>{item.name}</h3>
 
-                <span className="qty">
-                  {cart[item.item_id]?.quantity || 0}
-                </span>
+              <div className="price">₹{item.price}</div>
 
-                <button
-                  onClick={() => addItem(item)}
-                  disabled={disabled}
-                >
-                  +
-                </button>
+              <div className="qty-controls">
+                <button onClick={() => removeItem(item)} disabled={qty === 0}>−</button>
+                <span>{qty}</span>
+                <button onClick={() => addItem(item)} disabled={disabled}>+</button>
               </div>
 
-              {disabled && (
-                <div className="unavailable-label">
-                  Not Available
-                </div>
-              )}
+              {disabled && <div className="overlay">Not Available</div>}
             </div>
           )
         })}
       </div>
 
       {Object.keys(cart).length > 0 && (
-        <div className="checkout-bar">
-          <button onClick={goToOrder}>Proceed to Order →</button>
-        </div>
+        <button className="checkout-btn" onClick={goToOrder}>
+          Checkout
+        </button>
       )}
+
     </div>
-  )
+  </div>
+)
 }
+
